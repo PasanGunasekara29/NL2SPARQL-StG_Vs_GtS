@@ -1,24 +1,29 @@
 # NL2SPARQL-StG_Vs_GtS
+
 # Reasoning-Driven and Resource-Efficient NL2SPARQL using LLMs
+
+<p align="center">
+Reasoning-driven NL2SPARQL framework using LLMs with GtS/StG workflows, RAG, self-reflection, and LLM-as-a-Judge for scalable SPARQL generation.
+</p>
+
+---
 
 ## Overview
 
-This repository presents a reasoning-driven framework for **Natural Language to SPARQL (NL2SPARQL)** conversion using **Large Language Models (LLMs)**. The framework focuses on generating accurate SPARQL queries from natural language questions while remaining computationally efficient for deployment in resource-constrained environments.
+This repository presents a reasoning-driven framework for **Natural Language to SPARQL (NL2SPARQL)** conversion using **Large Language Models (LLMs)**. The framework enables efficient and scalable SPARQL generation while reducing computational overhead for deployment in resource-constrained environments.
 
-The system introduces two complementary reasoning workflows:
+The proposed system introduces two complementary reasoning workflows:
 
-* **Generation-then-Selection (GtS)**
-* **Selection-then-Generation (StG)**
+- **Generation-then-Selection (GtS)**
+- **Selection-then-Generation (StG)**
 
-Both approaches combine:
+The framework integrates:
 
-* Retrieval-Augmented Generation (RAG)
-* LLM-as-a-Judge
-* Iterative self-reflection
-* Self-consistency inspired reasoning
-* URI-aware prompting strategies
-
-The framework is designed for heterogeneous Knowledge Graphs and consumer-grade LLM deployments.
+- Retrieval-Augmented Generation (RAG)
+- LLM-as-a-Judge
+- Iterative self-reflection
+- Self-consistency inspired reasoning
+- URI-aware prompting
 
 ---
 
@@ -26,39 +31,55 @@ The framework is designed for heterogeneous Knowledge Graphs and consumer-grade 
 
 ✅ Dual reasoning workflows (GtS & StG)
 
-✅ LLM-as-a-Judge for SPARQL validation and selection
+✅ LLM-as-a-Judge based query validation
 
-✅ Self-reflection driven iterative refinement
+✅ Iterative self-reflection mechanism
 
 ✅ Retrieval-Augmented Generation (RAG)
 
 ✅ Reduced URI hallucination
 
-✅ Supports domain-specific and general Knowledge Graphs
+✅ Resource-efficient deployment
 
-✅ Resource-efficient deployment with small/consumer LLMs
-
-✅ Strong generalization across unseen query patterns
+✅ Generalization across heterogeneous knowledge graphs
 
 ---
 
-## Architecture
+# Architecture
 
-### Generation-then-Selection (GtS)
+## Generation-then-Selection (GtS)
 
-1. Retrieve relevant NL–SPARQL examples using RAG
-2. Build multiple prompt templates
-3. Generate candidate SPARQL queries
+<p align="center">
+  <img src="assets/GtS_Approach.png" width="900" alt="GtS Architecture">
+</p>
+
+The GtS workflow generates multiple candidate SPARQL queries through template-guided reasoning paths and selects the most contextually aligned output using an LLM Judge module.
+
+Workflow:
+
+1. Retrieve relevant NL–SPARQL examples
+2. Generate prompt templates
+3. Produce multiple candidate queries
 4. Apply iterative self-reflection
-5. Use LLM-as-a-Judge to select the best candidate
+5. Select the best query using LLM-as-a-Judge
 
-### Selection-then-Generation (StG)
+---
 
-1. Retrieve relevant examples
-2. Generalize SPARQL templates
-3. Use Judge module to select optimal structure
+## Selection-then-Generation (StG)
+
+<p align="center">
+  <img src="assets/StG_Approach.png" width="900" alt="StG Architecture">
+</p>
+
+The StG workflow first selects an optimal generalized SPARQL pattern and subsequently generates a query refined through iterative reasoning.
+
+Workflow:
+
+1. Retrieve examples
+2. Generate generalized templates
+3. Select template using Judge module
 4. Generate SPARQL query
-5. Refine using iterative self-reflection
+5. Refine using self-reflection
 
 ---
 
@@ -66,127 +87,14 @@ The framework is designed for heterogeneous Knowledge Graphs and consumer-grade 
 
 ```text
 .
+├── assets/
+│   ├── GtS_Approach.png
+│   └── StG_Approach.png
+│
 ├── data/
-│   ├── standard_datasets/
-│   └── custom_datasets/
-│
-├── models/
-│   └── LLM configurations
-│
 ├── rag/
-│   └── Retrieval pipeline
-│
 ├── judge/
-│   └── LLM-as-a-Judge modules
-│
 ├── self_reflection/
-│   └── Iterative refinement logic
-│
 ├── orchestrator/
-│   └── GtS and StG workflows
-│
 ├── evaluation/
-│   └── Metrics and benchmarks
-│
 └── main.py
-```
-
----
-
-## Datasets
-
-The framework supports multiple benchmark datasets:
-
-| Dataset                | Knowledge Graph  |
-| ---------------------- | ---------------- |
-| LC-QuAD 2.0            | Wikidata         |
-| VQuAnDa                | DBpedia          |
-| QALD-9                 | DBpedia          |
-| QALD-9 Plus            | Wikidata         |
-| Custom Weather Dataset | Climate Ontology |
-
----
-
-## Installation
-
-```bash
-git clone <repository-url>
-
-cd repository-name
-
-pip install -r requirements.txt
-```
-
----
-
-## Run
-
-Example:
-
-```bash
-python main.py
-```
-
-Input:
-
-```text
-What is the average temperature of New York City?
-```
-
-Output:
-
-```sparql
-SELECT ?avgTemp
-WHERE {
-   ...
-}
-```
-
----
-
-## Evaluation Metrics
-
-Performance is evaluated using:
-
-* BLEU
-* F1
-* Ensemble BLEU
-* Ensemble F1
-* Execution F1
-
----
-
-## Supported Models
-
-Examples:
-
-* Qwen2.5
-* Llama 3.2
-* Phi-4 Mini
-* Granite
-
-Models are optimized for local deployment and consumer-grade GPUs.
-
----
-
-## Citation
-
-If you use this work in research:
-
-```bibtex
-@article{nl2sparql_reasoning,
- title={Reasoning-Driven and Resource-Efficient SPARQL Query Generation Using Large Language Models}
-}
-```
-
----
-
-## License
-
-MIT License
-
----
-
-## Acknowledgments
-
-Built for scalable and efficient Knowledge Graph Question Answering using reasoning-driven Large Language Models.
