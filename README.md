@@ -1,5 +1,5 @@
 <h1>
-<img src="assets/logo.png" width="35" valign="middle"> 
+<img src="assets/logo.png" width="50" valign="middle"> 
 Reasoning-Driven and Resource-Efficient NL2SPARQL using LLMs
 </h1>
 
