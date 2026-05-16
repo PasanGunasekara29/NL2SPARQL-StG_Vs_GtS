@@ -278,7 +278,7 @@ Framework:
 
 * Ollama
 * ChromaDB
-* Sentence Transformers
+* Python
 
 ---
 
