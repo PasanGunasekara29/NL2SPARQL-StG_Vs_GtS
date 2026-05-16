@@ -1,11 +1,10 @@
 # Reasoning-Driven and Resource-Efficient NL2SPARQL using LLMs
-
 <p align="center">
-  <img src="assets/logo.png" width="150" alt="Project Architecture">
+  <h3 align="center">Reasoning-driven NL2SPARQL framework using LLMs with GtS/StG workflows, RAG, self-reflection, and LLM-as-a-Judge.</h3>
 </p>
 
 <p align="center">
-  <h3 align="center">Reasoning-driven NL2SPARQL framework using LLMs with GtS/StG workflows, RAG, self-reflection, and LLM-as-a-Judge.</h3>
+  <img src="assets/logo.png" width="100" alt="Project Architecture">
 </p>
 
 <p align="center">
