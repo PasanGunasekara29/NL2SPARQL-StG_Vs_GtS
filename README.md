@@ -181,7 +181,6 @@ Benefits:
 │
 ├── rag/
 ├── judge/
-├── self_reflection/
 ├── orchestrator/
 ├── evaluation/
 ├── models/
