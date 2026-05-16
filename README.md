@@ -1,11 +1,8 @@
 <h1>
-<img src="assets/icon.png" width="35" valign="middle"> 
+<img src="assets/logo.png" width="35" valign="middle"> 
 Reasoning-Driven and Resource-Efficient NL2SPARQL using LLMs
 </h1>
 
-<p align="center">
-  <img src="assets/logo.png" width="100" alt="Project Architecture">
-</p>
 
 <p align="center">
   <img src="assets/GtS_Approach.png" width="900" alt="GtS Architecture">
