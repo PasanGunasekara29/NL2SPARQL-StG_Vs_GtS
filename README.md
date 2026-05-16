@@ -1,7 +1,7 @@
 # Reasoning-Driven and Resource-Efficient NL2SPARQL using LLMs
 
 <p align="center">
-  <img src="assets/logo.png" width="900" alt="Project Architecture">
+  <img src="assets/logo.png" width="50" alt="Project Architecture">
 </p>
 
 <p align="center">
