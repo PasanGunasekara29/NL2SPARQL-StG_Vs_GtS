@@ -109,8 +109,7 @@ Workflow:
 2. Generalize SPARQL patterns
 3. Judge module selects template
 4. Build prompt structure
-5. Generate SPARQL query
-6. Iteratively refine output
+5. Generate SPARQL query with iterative reflection
 
 Characteristics:
 
