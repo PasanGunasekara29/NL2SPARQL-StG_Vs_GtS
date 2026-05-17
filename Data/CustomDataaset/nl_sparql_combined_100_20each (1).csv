@@ -1,0 +1,1091 @@
+category,nl_question,sparql_query
+Temperature Extremes,What was the lowest recorded temperature in Dublin and when did it occur?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+
+SELECT ?date ?val
+WHERE {
+    ?obs a ca:TemperatureObservation ;
+         sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val .
+}
+ORDER BY ASC(?val)
+LIMIT 1"
+Temperature Extremes,Which month contained the hottest day ever recorded?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?month WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+ BIND(MONTH(?date) AS ?month)
+}
+ORDER BY DESC(?val) LIMIT 1"
+Temperature Extremes,What is the temperature range on the hottest day?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# Retrieve max/min values and compute range externally
+SELECT ?date ?label ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ?label .
+ FILTER(?label=""max"" || ?label=""min"")
+}"
+Temperature Extremes,What was the coldest day in January across all years?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""min"" .
+ FILTER(MONTH(?date)=1)
+}
+ORDER BY ASC(?val) LIMIT 1"
+Temperature Extremes,What was the hottest day in July across all years?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+ FILTER(MONTH(?date)=7)
+}
+ORDER BY DESC(?val) LIMIT 1"
+Temperature Extremes,How many days had minimum temperature above 50°F?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(?obs) AS ?days) WHERE {
+ ?obs sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""min"" .
+ FILTER(?val > 50)
+}"
+Temperature Extremes,What was the coldest day based on average temperature?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+}
+ORDER BY ASC(?val) LIMIT 1"
+Temperature Extremes,In which year did the highest maximum temperature occur?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+ BIND(YEAR(?date) AS ?year)
+}
+ORDER BY DESC(?val) LIMIT 1"
+Temperature Extremes,What was the lowest maximum temperature ever recorded?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+}
+ORDER BY ASC(?val) LIMIT 1"
+Temperature Extremes,What was the highest minimum temperature ever recorded?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""min"" .
+}
+ORDER BY DESC(?val) LIMIT 1"
+Temperature Extremes,How many days had maximum temperature below 40°F?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(?obs) AS ?days) WHERE {
+ ?obs sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+ FILTER(?val < 40)
+}"
+Temperature Extremes,What was the temperature on 2003-08-02?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?val
+WHERE {
+    ?obs sosa:resultTime ""2003-08-02""^^xsd:date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val .
+}"
+Temperature Extremes,How many days had minimum temperature below 32°F?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?obs) AS ?freezingDays)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""min"" .
+
+  FILTER(?val < 32)
+}"
+Temperature Extremes,How many days had a maximum temperature above 80°F?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?obs) AS ?hotDays)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""max"" .
+
+  FILTER(?val > 80)
+}"
+Temperature Extremes,What was the lowest temperature recorded in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?date ?val
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""min"" .
+
+  FILTER(
+    ?date >= ""2010-01-01""^^xsd:date &&
+    ?date <= ""2010-12-31""^^xsd:date
+  )
+}
+ORDER BY ASC(?val)
+LIMIT 1"
+Temperature Extremes,What was the highest temperature recorded in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?date ?val
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""max"" .
+
+  FILTER(
+    ?date >= ""2010-01-01""^^xsd:date &&
+    ?date <= ""2010-12-31""^^xsd:date
+  )
+}
+ORDER BY DESC(?val)
+LIMIT 1"
+Temperature Extremes,What was the highest recorded temperature in 2003?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+
+SELECT ?date ?val
+WHERE {
+    ?obs a ca:TemperatureObservation ;
+         sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val .
+
+    FILTER(YEAR(?date) = 2003)
+}
+ORDER BY DESC(?val)
+LIMIT 1"
+Temperature Extremes,Which month was the coldest on average in the dataset?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+
+SELECT ?year ?month (AVG(?val) AS ?avgTemp)
+WHERE {
+    ?obs a ca:TemperatureObservation ;
+         sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val .
+
+    BIND(YEAR(?date) AS ?year)
+    BIND(MONTH(?date) AS ?month)
+}
+GROUP BY ?year ?month
+ORDER BY ASC(?avgTemp)
+LIMIT 1"
+Temperature Extremes,Which year had the highest average temperature in Dublin?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+
+SELECT ?year (AVG(?val) AS ?avgTemp)
+WHERE {
+    ?obs a ca:TemperatureObservation ;
+         sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val .
+
+    BIND(YEAR(?date) AS ?year)
+}
+GROUP BY ?year
+ORDER BY DESC(?avgTemp)
+LIMIT 1"
+Temperature Extremes,What was the lowest temperature recorded in  2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+
+SELECT ?date ?val
+WHERE {
+    ?obs a ca:TemperatureObservation ;
+         sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val .
+
+    FILTER(YEAR(?date) = 2010)
+}
+ORDER BY ASC(?val)
+LIMIT 1"
+Precipitation Analysis,Which year had the lowest total rainfall?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (SUM(?val) AS ?totalRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(YEAR(?date) AS ?year)
+}
+GROUP BY ?year ORDER BY ASC(?totalRain) LIMIT 1"
+Precipitation Analysis,How many days had precipitation above 2 inches?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(?obs) AS ?days) WHERE {
+ ?obs sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(?val > 2)
+}"
+Precipitation Analysis,What was the wettest month in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?month (SUM(?val) AS ?totalRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(YEAR(?date)=2010)
+ BIND(MONTH(?date) AS ?month)
+}
+GROUP BY ?month ORDER BY DESC(?totalRain) LIMIT 1"
+Precipitation Analysis,What is the average snow depth in winter?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (AVG(?val) AS ?avgSnow) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""snow_depth"" .
+ FILTER(MONTH(?date)=12 || MONTH(?date)=1 || MONTH(?date)=2)
+}"
+Precipitation Analysis,How much total rainfall occurred in summer 2003?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (SUM(?val) AS ?totalRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(YEAR(?date)=2003)
+ FILTER(MONTH(?date)>=6 && MONTH(?date)<=8)
+}"
+Precipitation Analysis,What was the precipitation on the wettest day?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+}
+ORDER BY DESC(?val) LIMIT 1"
+Precipitation Analysis,Which month had the lowest average rainfall?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?month (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(MONTH(?date) AS ?month)
+}
+GROUP BY ?month ORDER BY ASC(?avgRain) LIMIT 1"
+Precipitation Analysis,What was the average rainfall in July?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(MONTH(?date)=7)
+}"
+Precipitation Analysis,How many days had zero precipitation?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(?obs) AS ?days) WHERE {
+ ?obs sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(?val = 0)
+}"
+Precipitation Analysis,What was the driest day recorded?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+}
+ORDER BY ASC(?val) LIMIT 1"
+Precipitation Analysis,What was the wettest day recorded in Dublin?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?date ?val
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+}
+ORDER BY DESC(?val)
+LIMIT 1"
+Precipitation Analysis,What was the maximum snow depth recorded?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (MAX(?val) AS ?maxSnow)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""snow_depth"" .
+}"
+Precipitation Analysis,What was the average precipitation in 2003?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (AVG(?val) AS ?avgRain)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(
+    ?date >= ""2003-01-01""^^xsd:date &&
+    ?date <= ""2003-12-31""^^xsd:date
+  )
+}"
+Precipitation Analysis,How many rainy days were there in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (COUNT(?obs) AS ?rainyDays)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(?val > 0)
+  FILTER(
+    ?date >= ""2010-01-01""^^xsd:date &&
+    ?date <= ""2010-12-31""^^xsd:date
+  )
+}"
+Precipitation Analysis,How much total precipitation was recorded in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (SUM(?val) AS ?totalRain)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(
+    ?date >= ""2010-01-01""^^xsd:date &&
+    ?date <= ""2010-12-31""^^xsd:date
+  )
+}"
+Precipitation Analysis,What was the average precipitation in March 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (AVG(?val) AS ?avgRain)
+WHERE {
+    ?obs sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""precipitation"" .
+
+    FILTER(
+      ?date >= ""2010-03-01""^^xsd:date &&
+      ?date <= ""2010-03-31""^^xsd:date
+    )
+}"
+Precipitation Analysis,How much precipitation was recorded in March 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (SUM(?val) AS ?totalRain)
+WHERE {
+    ?obs sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""precipitation"" .
+
+    FILTER(
+      ?date >= ""2010-03-01""^^xsd:date &&
+      ?date <= ""2010-03-31""^^xsd:date
+    )
+}"
+Precipitation Analysis,Was the precipitation higher than value of 0.2 on 2010-01-10?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?val
+WHERE {
+    ?obs a ca:PrecipitationObservation ;
+         sosa:resultTime ""2010-01-10""^^xsd:date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""precipitation"" .
+
+    FILTER(?val > 0.2)
+}"
+Precipitation Analysis,What is the precipitation value on 2003-08-02?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX ca: <http://example.org/ca/ont/Class/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?val
+WHERE {
+    ?obs a ca:PrecipitationObservation ;
+         sosa:resultTime ""2003-08-02""^^xsd:date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""precipitation"" .
+}"
+Precipitation Analysis,What was the average precipitation in the year 2003?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (AVG(?val) AS ?avgRain)
+WHERE {
+    ?obs sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""precipitation"" .
+
+    FILTER(
+      ?date >= ""2003-01-01""^^xsd:date &&
+      ?date <= ""2003-12-31""^^xsd:date
+    )
+}"
+Temporal Trends,Which decade was the coldest?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?decade (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(FLOOR(YEAR(?date)/10)*10 AS ?decade)
+} GROUP BY ?decade ORDER BY ASC(?avgTemp) LIMIT 1"
+Temporal Trends,What was the yearly average precipitation trend?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(YEAR(?date) AS ?year)
+} GROUP BY ?year ORDER BY ?year"
+Temporal Trends,How many years show average temperature above 55°F?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(?year) AS ?numYears) WHERE {
+ { SELECT ?year (AVG(?val) AS ?avgTemp) WHERE {
+    ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+    ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+    BIND(YEAR(?date) AS ?year)
+   } GROUP BY ?year HAVING(AVG(?val) > 55)
+ }
+}"
+Temporal Trends,Did rainfall increase over time?,"# yearly rainfall averages; assess trend externally
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(YEAR(?date) AS ?year)
+} GROUP BY ?year ORDER BY ?year"
+Temporal Trends,Which year shows the largest temperature anomaly?,"# yearly averages; compare to overall mean externally
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(YEAR(?date) AS ?year)
+} GROUP BY ?year"
+Temporal Trends,What is the average temperature in the first year of data?,"# yearly averages; pick first year externally
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(YEAR(?date) AS ?year)
+} GROUP BY ?year ORDER BY ?year"
+Temporal Trends,What is the average temperature in the last year of data?,"# yearly averages; pick last year externally
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(YEAR(?date) AS ?year)
+} GROUP BY ?year ORDER BY DESC(?year)"
+Temporal Trends,What is the temperature trend per decade?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?decade (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(FLOOR(YEAR(?date)/10)*10 AS ?decade)
+} GROUP BY ?decade ORDER BY ?decade"
+Temporal Trends,Compare average temperature before and after 2000.,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?period (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(IF(YEAR(?date)<2000,""before_2000"",""after_2000"") AS ?period)
+} GROUP BY ?period"
+Temporal Trends,Did average temperature increase from 1980 to 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?year (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(YEAR(?date) AS ?year) FILTER(?year=1980 || ?year=2010)
+} GROUP BY ?year ORDER BY ?year"
+Temporal Trends,What was the maximum snow depth recorded?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (MAX(?val) AS ?maxSnow)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""snow_depth"" .
+}"
+Temporal Trends,How did the average temperature change over the years?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?year (AVG(?val) AS ?avgTemp)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+
+  BIND(YEAR(?date) AS ?year)
+}
+GROUP BY ?year
+ORDER BY ?year"
+Temporal Trends,Which year was the warmest on average?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?year (AVG(?val) AS ?avgTemp)
+WHERE {
+    ?obs sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""avg"" .
+
+    BIND(YEAR(?date) AS ?year)
+}
+GROUP BY ?year
+ORDER BY DESC(?avgTemp)
+LIMIT 1"
+Temporal Trends,Was the average temperature higher in 2000 than in 1990?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?year (AVG(?val) AS ?avgTemp)
+WHERE {
+    ?obs sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""avg"" .
+
+    BIND(YEAR(?date) AS ?year)
+
+    FILTER(?year = 1990 || ?year = 2000)
+}
+GROUP BY ?year
+ORDER BY ?year"
+Temporal Trends,Which year was the coldest on average?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?year (AVG(?val) AS ?avgTemp)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+  BIND(YEAR(?date) AS ?year)
+}
+GROUP BY ?year
+ORDER BY ASC(?avgTemp)
+LIMIT 1"
+Temporal Trends,What was the average temperature per year?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?year (AVG(?val) AS ?avgTemp)
+WHERE {
+    ?obs sosa:resultTime ?date ;
+         sosa:hasResult ?res .
+
+    ?res qudt:numericValue ?val ;
+         rdfs:label ""avg"" .
+
+    BIND(YEAR(?date) AS ?year)
+}
+GROUP BY ?year
+ORDER BY ?year"
+Temporal Trends,How much total precipitation was recorded in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (SUM(?val) AS ?totalRain)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(
+    ?date >= ""2010-01-01""^^xsd:date &&
+    ?date <= ""2010-12-31""^^xsd:date
+  )
+}"
+Temporal Trends,How many rainy days were there in 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (COUNT(?obs) AS ?rainyDays)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(?val > 0)
+  FILTER(
+    ?date >= ""2010-01-01""^^xsd:date &&
+    ?date <= ""2010-12-31""^^xsd:date
+  )
+}"
+Temporal Trends,What was the average precipitation in 2003?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (AVG(?val) AS ?avgRain)
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(
+    ?date >= ""2003-01-01""^^xsd:date &&
+    ?date <= ""2003-12-31""^^xsd:date
+  )
+}"
+Temporal Trends,What was the wettest day recorded in Dublin?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?date ?val
+WHERE {
+  ?obs sosa:resultTime ?date ;
+       sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+}
+ORDER BY DESC(?val)
+LIMIT 1"
+Seasonal & Period Comparison,Is spring warmer than autumn?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(IF(MONTH(?date)>=3 && MONTH(?date)<=5,""Spring"",IF(MONTH(?date)>=9 && MONTH(?date)<=11,""Autumn"",""Other"")) AS ?season)
+ FILTER(?season!=""Other"")
+} GROUP BY ?season"
+Seasonal & Period Comparison,Which season has the lowest minimum temperature?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (MIN(?val) AS ?minTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""min"" .
+ BIND(IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",IF(MONTH(?date)<=5,""Spring"",IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+} GROUP BY ?season ORDER BY ASC(?minTemp) LIMIT 1"
+Seasonal & Period Comparison,Which season has the highest maximum temperature?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (MAX(?val) AS ?maxTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+ BIND(IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",IF(MONTH(?date)<=5,""Spring"",IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+} GROUP BY ?season ORDER BY DESC(?maxTemp) LIMIT 1"
+Seasonal & Period Comparison,Compare average temperatures between March and September.,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?month (AVG(?val) AS ?avgTemp) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(MONTH(?date) AS ?month)
+ FILTER(?month=3 || ?month=9)
+} GROUP BY ?month"
+Seasonal & Period Comparison,Which season has the most rainy days?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (COUNT(?obs) AS ?rainyDays) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(?val>0)
+ BIND(IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",IF(MONTH(?date)<=5,""Spring"",IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+} GROUP BY ?season ORDER BY DESC(?rainyDays) LIMIT 1"
+Seasonal & Period Comparison,Is winter precipitation higher than summer precipitation?,"# same as above; compare externally
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(IF(MONTH(?date)>=6 && MONTH(?date)<=8,""Summer"",IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",""Other"")) AS ?season)
+ FILTER(?season!=""Other"")
+} GROUP BY ?season"
+Seasonal & Period Comparison,Compare summer rainfall with winter rainfall.,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(IF(MONTH(?date)>=6 && MONTH(?date)<=8,""Summer"",IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",""Other"")) AS ?season)
+ FILTER(?season!=""Other"")
+} GROUP BY ?season"
+Seasonal & Period Comparison,Which season has the highest temperature variability?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (MAX(?val)-MIN(?val) AS ?range) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",IF(MONTH(?date)<=5,""Spring"",IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+} GROUP BY ?season ORDER BY DESC(?range) LIMIT 1"
+Seasonal & Period Comparison,Which season has the lowest rainfall?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?season (AVG(?val) AS ?avgRain) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",IF(MONTH(?date)<=5,""Spring"",IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+} GROUP BY ?season ORDER BY ASC(?avgRain) LIMIT 1"
+Seasonal & Period Comparison,Which month shows the greatest temperature range?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?month (MAX(?val)-MIN(?val) AS ?range) WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(MONTH(?date) AS ?month)
+} GROUP BY ?month ORDER BY DESC(?range) LIMIT 1"
+Seasonal & Period Comparison,What was the average temperature during summer 2010?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (AVG(?val) AS ?avgTemp)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ FILTER(?date >= ""2010-06-01""^^xsd:date &&
+        ?date <= ""2010-08-31""^^xsd:date)
+}"
+Seasonal & Period Comparison,Which season has the largest temperature variability?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?season (MAX(?val)-MIN(?val) AS ?range)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(
+   IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",
+   IF(MONTH(?date)<=5,""Spring"",
+   IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+}
+GROUP BY ?season
+ORDER BY DESC(?range)
+LIMIT 1"
+Seasonal & Period Comparison,Which season is coldest on average?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?season (AVG(?val) AS ?avgTemp)
+WHERE {
+  ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+  BIND(
+    IF(MONTH(?date)=12 || MONTH(?date)<=2, ""Winter"",
+    IF(MONTH(?date)<=5, ""Spring"",
+    IF(MONTH(?date)<=8, ""Summer"",""Autumn""))) AS ?season)
+}
+GROUP BY ?season
+ORDER BY ASC(?avgTemp)
+LIMIT 1"
+Seasonal & Period Comparison,Is summer warmer than winter?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?season (AVG(?val) AS ?avgTemp)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(
+   IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",
+   IF(MONTH(?date)>=6 && MONTH(?date)<=8,""Summer"",""Other"")) AS ?season)
+ FILTER(?season!=""Other"")
+}
+GROUP BY ?season"
+Seasonal & Period Comparison,Which month has the highest average temperature?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?month (AVG(?val) AS ?avgTemp)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(MONTH(?date) AS ?month)
+}
+GROUP BY ?month
+ORDER BY DESC(?avgTemp)
+LIMIT 1"
+Seasonal & Period Comparison,Which season is warmest on average?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?season (AVG(?val) AS ?avgTemp)
+WHERE {
+  ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+  BIND(
+    IF(MONTH(?date)=12 || MONTH(?date)<=2, ""Winter"",
+    IF(MONTH(?date)<=5, ""Spring"",
+    IF(MONTH(?date)<=8, ""Summer"",""Autumn""))) AS ?season)
+}
+GROUP BY ?season
+ORDER BY DESC(?avgTemp)
+LIMIT 1"
+Seasonal & Period Comparison,Which month has the lowest average temperature?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?month (AVG(?val) AS ?avgTemp)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(MONTH(?date) AS ?month)
+}
+GROUP BY ?month
+ORDER BY ASC(?avgTemp)
+LIMIT 1"
+Seasonal & Period Comparison,Is July warmer than January?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?month (AVG(?val) AS ?avgTemp)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(MONTH(?date) AS ?month)
+ FILTER(?month=1 || ?month=7)
+}
+GROUP BY ?month"
+Seasonal & Period Comparison,Which season has the highest average rainfall?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?season (AVG(?val) AS ?avgRain)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ BIND(
+   IF(MONTH(?date)=12 || MONTH(?date)<=2,""Winter"",
+   IF(MONTH(?date)<=5,""Spring"",
+   IF(MONTH(?date)<=8,""Summer"",""Autumn""))) AS ?season)
+}
+GROUP BY ?season
+ORDER BY DESC(?avgRain)
+LIMIT 1"
+Seasonal & Period Comparison,Was the 2000s warmer than the 1990s?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?decade (AVG(?val) AS ?avgTemp)
+WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+ BIND(FLOOR(YEAR(?date)/10)*10 AS ?decade)
+ FILTER(?decade=1990 || ?decade=2000)
+}
+GROUP BY ?decade"
+Statistical Summaries,What is the median precipitation value?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# compute median externally
+SELECT ?val WHERE { ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" . }"
+Statistical Summaries,What is the minimum snow depth?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (MIN(?val) AS ?minSnow) WHERE {
+ ?res qudt:numericValue ?val ; rdfs:label ""snow_depth"" .
+}"
+Statistical Summaries,What is the maximum precipitation value?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (MAX(?val) AS ?maxRain) WHERE {
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+}"
+Statistical Summaries,What is the interquartile range of temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# compute IQR externally
+SELECT ?val WHERE { ?res qudt:numericValue ?val ; rdfs:label ""avg"" . }"
+Statistical Summaries,What percentage of days are rainy?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (COUNT(?obs) AS ?rainyDays) WHERE {
+ ?obs sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""precipitation"" .
+ FILTER(?val>0)
+}"
+Statistical Summaries,How many days exceed the yearly average temperature?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# compute yearly means externally
+SELECT ?date ?val WHERE {
+ ?obs sosa:resultTime ?date ; sosa:hasResult ?res .
+ ?res qudt:numericValue ?val ; rdfs:label ""avg"" .
+}"
+Statistical Summaries,What is the variance of average temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# compute variance externally
+SELECT ?val WHERE { ?res qudt:numericValue ?val ; rdfs:label ""avg"" . }"
+Statistical Summaries,How many observations have missing precipitation?,"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# missing values not represented; compare with CSV totals externally
+SELECT (COUNT(?res) AS ?precipResults) WHERE {
+ ?res rdfs:label ""precipitation"" .
+}"
+Statistical Summaries,What is the standard deviation of average temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?val
+WHERE {
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+}"
+Statistical Summaries,What is the highest average daily temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (MAX(?val) AS ?maxAvg)
+WHERE {
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+}"
+Statistical Summaries,How many days had minimum temperature below 32Â°F?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?res) AS ?days)
+WHERE {
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""min"" .
+  FILTER(?val < 32)
+}"
+Statistical Summaries,How many days had average temperature above 60Â°F?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?res) AS ?days)
+WHERE {
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+  FILTER(?val > 60)
+}"
+Statistical Summaries,What is the lowest average daily temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (MIN(?val) AS ?minAvg)
+WHERE {
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+}"
+Statistical Summaries,How many days had precipitation greater than zero?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?obs) AS ?rainyDays)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+  FILTER(?val > 0)
+}"
+Statistical Summaries,How many temperature records exist in the dataset?,"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?res) AS ?count)
+WHERE {
+  ?res rdfs:label ""avg"" .
+}"
+Statistical Summaries,What is the average precipitation in the dataset?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (AVG(?val) AS ?avgRain)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""precipitation"" .
+}"
+Statistical Summaries,What is the overall average temperature in the dataset?,"PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (AVG(?val) AS ?avgTemp)
+WHERE {
+  ?obs sosa:hasResult ?res .
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+}"
+Statistical Summaries,What is the mean maximum temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (AVG(?val) AS ?meanMax) WHERE {
+ ?res qudt:numericValue ?val ; rdfs:label ""max"" .
+}"
+Statistical Summaries,What is the median daily average temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?val
+WHERE {
+  ?res qudt:numericValue ?val ;
+       rdfs:label ""avg"" .
+}"
+Statistical Summaries,What is the mean minimum temperature?,"PREFIX qudt: <http://qudt.org/1.1/schema/qudt#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (AVG(?val) AS ?meanMin) WHERE {
+ ?res qudt:numericValue ?val ; rdfs:label ""min"" .
+}"
