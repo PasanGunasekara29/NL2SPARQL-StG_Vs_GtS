@@ -203,21 +203,21 @@ Benefits:
 
 ## Experimented Models
 
-model1 = "hf.co/bartowski/microsoft_Phi-4-mini-instruct-GGUF:microsoft_Phi-4-mini-instruct-Q8_0.gguf"
-model2 = "hf.co/bartowski/Llama-3.2-3B-Instruct-GGUF:Llama-3.2-3B-Instruct-Q8_0.gguf"
-model3 = "hf.co/Qwen/Qwen2.5-3B-Instruct-GGUF:qwen2.5-3b-instruct-q8_0.gguf"
-model4 = "hf.co/Qwen/Qwen2-7B-Instruct-GGUF:qwen2-7b-instruct-q8_0.gguf"
-model5 = "hf.co/Qwen/Qwen2.5-14B-Instruct-GGUF:qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf"
-model6 = "hf.co/bartowski/Qwen2.5-7B-Instruct-GGUF:Qwen2.5-7B-Instruct-Q8_0.gguf"
-model7 = "hf.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF:qwen2.5-1.5b-instruct-q8_0.gguf"
-model8 = "hf.co/mav23/granite-3.0-2b-instruct-GGUF:granite-3.0-2b-instruct.Q8_0.gguf"
-model9 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q8_0.gguf"
-model10 = "hf.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF:Qwen2.5-1.5B-Instruct-Q8_0.gguf"
-model11 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q2_K.gguf"
-model12 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q4_K_M.gguf"
-model13 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q6_K.gguf"
-model14 = "hf.co/bartowski/granite-3.1-3b-a800m-instruct-GGUF:granite-3.1-3b-a800m-instruct-Q8_0.gguf"
-model15 = "hf.co/bartowski/microsoft_Phi-4-mini-instruct-GGUF:microsoft_Phi-4-mini-instruct-Q8_0.gguf"
+1. model1 = "hf.co/bartowski/microsoft_Phi-4-mini-instruct-GGUF:microsoft_Phi-4-mini-instruct-Q8_0.gguf"
+2. model2 = "hf.co/bartowski/Llama-3.2-3B-Instruct-GGUF:Llama-3.2-3B-Instruct-Q8_0.gguf"
+3. model3 = "hf.co/Qwen/Qwen2.5-3B-Instruct-GGUF:qwen2.5-3b-instruct-q8_0.gguf"
+4. model4 = "hf.co/Qwen/Qwen2-7B-Instruct-GGUF:qwen2-7b-instruct-q8_0.gguf"
+5. model5 = "hf.co/Qwen/Qwen2.5-14B-Instruct-GGUF:qwen2.5-14b-instruct-q4_k_m-00001-of-00003.gguf"
+6. model6 = "hf.co/bartowski/Qwen2.5-7B-Instruct-GGUF:Qwen2.5-7B-Instruct-Q8_0.gguf"
+7. model7 = "hf.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF:qwen2.5-1.5b-instruct-q8_0.gguf"
+8. model8 = "hf.co/mav23/granite-3.0-2b-instruct-GGUF:granite-3.0-2b-instruct.Q8_0.gguf"
+9. model9 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q8_0.gguf"
+10. model10 = "hf.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF:Qwen2.5-1.5B-Instruct-Q8_0.gguf"
+11. model11 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q2_K.gguf"
+12. model12 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q4_K_M.gguf"
+13. model13 = "hf.co/bartowski/Qwen2.5-14B-Instruct-GGUF:Qwen2.5-14B-Instruct-Q6_K.gguf"
+14. model14 = "hf.co/bartowski/granite-3.1-3b-a800m-instruct-GGUF:granite-3.1-3b-a800m-instruct-Q8_0.gguf"
+15. model15 = "hf.co/bartowski/microsoft_Phi-4-mini-instruct-GGUF:microsoft_Phi-4-mini-instruct-Q8_0.gguf"
 
 Quantized versions supported:
 
