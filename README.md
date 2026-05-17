@@ -228,21 +228,77 @@ Quantized versions supported:
 
 ## Installation
 
+Clone the repository:
+
 ```bash
-git clone <repo-url>
+git clone https://github.com/PasanGunasekara29/NL2SPARQL-StG_Vs_GtS.git
 
-cd repository
+cd NL2SPARQL-StG_Vs_GtS
+```
 
+Install project requirements:
+
+```bash
 pip install -r requirements.txt
+```
+
+If installation fails because of dependency conflicts, run:
+
+```bash
+pip install -r requirements.txt --no-deps
 ```
 
 ---
 
-## Running the Framework
+## Install Ollama
+
+Download and install Ollama:
+
+https://ollama.com/
+
+Verify installation:
 
 ```bash
-python main.py
+ollama --version
 ```
+
+Pull your preferred model:
+
+```bash
+ollama pull qwen2.5:7b
+```
+
+You can also use any of the supported models listed in the paper.
+
+---
+
+## Create Vector Database
+
+Before running the framework, create the vector database used for RAG:
+
+```bash
+python vectoDB.py
+```
+
+This step:
+
+- Creates embeddings
+- Builds ChromaDB vector storage
+- Indexes NL–SPARQL examples
+- Prepares retrieval components
+
+Wait until indexing completes successfully.
+
+---
+
+## Deploy and Run Framework
+
+After the vector database is created:
+
+```bash
+python main_GtS.py
+```
+
 
 Example input:
 
@@ -258,8 +314,6 @@ WHERE {
 ...
 }
 ```
-
----
 
 ## Evaluation Metrics
 
