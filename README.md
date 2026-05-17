@@ -170,21 +170,30 @@ Benefits:
 
 ```text
 .
+├── Data/
+│
+├── Tools/
+│
 ├── assets/
 │   ├── GtS_Approach.png
 │   └── StG_Approach.png
 │
-├── data/
-│   ├── standard_datasets/
-│   └── custom_datasets/
-│
-├── rag/
-├── judge/
-├── orchestrator/
-├── evaluation/
-├── models/
-└── main.py
+├── README.md
+├── Test_GtS.ipynb
+├── Test_StG.ipynb
+├── evaluation.py
+├── framework_GtS.py
+├── framework_stg.py
+├── main_GtS.py
+├── main_stg.py
+├── modules.py
+├── modules_GtS.py
+├── requirements.txt
+├── spacy_component.py
+├── utilities.py
+└── vectorDB.py
 ```
+
 
 ---
 
