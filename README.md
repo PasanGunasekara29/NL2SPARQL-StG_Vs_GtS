@@ -63,7 +63,7 @@ Reasoning-based selection of candidate SPARQL outputs.
 
 ### Iterative self-reflection
 
-Progressive refinement of generated SPARQL queries.
+Mitigation of noise in generation process.
 
 ### Resource-efficient deployment
 
